@@ -1,6 +1,6 @@
 all:
   children:
-    nginx:
+    grupo_sw:
       hosts:
         servidor_web: 
           ansible_ssh_host: 192.168.121.56

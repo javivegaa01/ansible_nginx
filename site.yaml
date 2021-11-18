@@ -3,17 +3,17 @@
   roles:
    - role: commons
 
-- hosts: nginx
+- hosts: grupo_sw
   become: true
   roles:
    - role: nginx
   
-- hosts: nginx
+- hosts: grupo_sw
   become: true
   roles:
    - role: mariadb
 
-- hosts: nginx
+- hosts: grupo_sw
   become: true
   roles:
    - role: php-fpm
