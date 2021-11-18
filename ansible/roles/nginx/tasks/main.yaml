@@ -44,14 +44,6 @@
   with_items:
     - "{{virtualhosts}}"
 
-- name: Activar virtualhost
-  file:
-    src: /etc/nginx/sites-available/vhost.j2
-    dest: /etc/nginx/sites-enabled/vhost.j2
-    state: link
-    mode: 0755
-  notify: restart nginx
-
 - name: Delete virtualhosts
   file:
     dest: /etc/nginx/sites-enabled/{{item["name"]}}
