@@ -5,7 +5,7 @@
 - name: Configuración de virtualhost
   template: 
     src: etc/nginx/sites-available/vhost.j2
-    dest: /etc/nginx/sites-available/{{item["name"]}}.conf
+    dest: /etc/nginx/sites-available/{{item["name"]}}
     owner: root
     group: root
     mode: 0644
@@ -25,8 +25,8 @@
 
 - name: Add vhost symlink in sites-enabled.
   file:
-    src: /etc/nginx/sites-available/{{item["name"]}}.conf
-    dest: /etc/nginx/sites-enabled/{{item["name"]}}.conf
+    src: /etc/nginx/sites-available/{{item["name"]}}
+    dest: /etc/nginx/sites-enabled/{{item["name"]}}
     state: link
     mode: 0755
   with_items:
@@ -44,9 +44,17 @@
   with_items:
     - "{{virtualhosts}}"
 
+- name: Activar virtualhost
+  file:
+    src: /etc/nginx/sites-available/vhost.j2
+    dest: /etc/nginx/sites-enabled/vhost.j2
+    state: link
+    mode: 0755
+  notify: restart nginx
+
 - name: Delete virtualhosts
   file:
-    dest: /etc/nginx/sites-enabled/{{item["name"]}}.conf
+    dest: /etc/nginx/sites-enabled/{{item["name"]}}
     state: absent
   with_items:
     - "{{virtualhosts2}}"
